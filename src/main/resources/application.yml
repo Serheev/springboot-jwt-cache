@@ -1,0 +1,27 @@
+server:
+    port: 8080
+    
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/jwtauthcache
+        username: postgres
+        password: postgres
+
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+            naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQL95Dialect
+                format_sql: true
+                default_batch_fetch_size: 20
+                # https://stackoverflow.com/questions/21257819/what-is-the-difference-between-hibernate-jdbc-fetch-size-and-hibernate-jdbc-batc
+                jdbc.batch_size: 20
+jwt:
+    token:
+        secret: SecretWord
+        accessExpirationMs: 60000
+        refreshExpirationMs: 3600000
+        issuer: Serheev
