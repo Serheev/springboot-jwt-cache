@@ -16,14 +16,18 @@ import net.jodah.expiringmap.ExpiringMap;
 
 @Component
 public class LoggedOutJwtTokenCache {
-	private static final Logger logger = LoggerFactory.getLogger(LoggedOutJwtTokenCache.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoggedOutJwtTokenCache.class);
 
     private ExpiringMap<String, OnUserLogoutSuccessEvent> tokenEventMap;
     private JwtProvider tokenProvider;
 
     @Autowired
-    public LoggedOutJwtTokenCache(JwtProvider tokenProvider) {
+    public void setTokenProvider(JwtProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
+    }
+
+    @Autowired
+    public void setTokenEventMap() {
         this.tokenEventMap = ExpiringMap.builder()
                 .variableExpiration()
                 .maxSize(1000)

@@ -1,12 +1,11 @@
 server:
     port: 8080
-    
+
 spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/jwtauthcache
         username: postgres
         password: postgres
-
     jpa:
         show-sql: true
         hibernate:
@@ -19,6 +18,9 @@ spring:
                 default_batch_fetch_size: 20
                 # https://stackoverflow.com/questions/21257819/what-is-the-difference-between-hibernate-jdbc-fetch-size-and-hibernate-jdbc-batc
                 jdbc.batch_size: 20
+    main:
+        allow-circular-references: false
+
 jwt:
     token:
         secret: SecretWord

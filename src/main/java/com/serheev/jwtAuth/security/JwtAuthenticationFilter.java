@@ -20,11 +20,19 @@ import com.serheev.jwtAuth.service.UserDetailsServiceImpl;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired
     private JwtProvider tokenProvider;
 
-    @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    public void setTokenProvider(JwtProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
+    }
+
+    @Autowired
+    public void setUserDetailsServiceImpl(UserDetailsServiceImpl userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
