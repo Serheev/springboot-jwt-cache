@@ -3,18 +3,13 @@ package com.serheev.jwtAuth.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.Instant;
 
 @Data
 @Entity
 @Table(name = "refresh_token")
-public class RefreshToken {
-
-	@Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "refresh_token_seq")
-    @SequenceGenerator(name = "refresh_token_seq", allocationSize = 1)
-    private Long id;
+public class RefreshToken extends BaseEntity implements Serializable {
 
     @Column(name = "refresh_token", nullable = false, unique = true)
     private String refreshToken;
@@ -31,7 +26,7 @@ public class RefreshToken {
 
     @Column(name = "expiry_dt", nullable = false)
     private Instant expiryDate;
-    
+
     public void incrementRefreshCount() {
         refreshCount = refreshCount + 1;
     }

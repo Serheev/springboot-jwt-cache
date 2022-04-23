@@ -16,7 +16,7 @@ import com.serheev.jwtAuth.model.User;
 public class UserPrincipal implements UserDetails {
 
     private static final long serialVersionUID = 1L;
-    private Long id;
+    private int id;
     private String name;
     private String email;
 
@@ -27,7 +27,7 @@ public class UserPrincipal implements UserDetails {
 
     private Map<String, Object> attributes;
 
-    public UserPrincipal(Long id, String name,
+    public UserPrincipal(int id, String name,
                          String email, String password,
                          Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
@@ -51,7 +51,7 @@ public class UserPrincipal implements UserDetails {
         );
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

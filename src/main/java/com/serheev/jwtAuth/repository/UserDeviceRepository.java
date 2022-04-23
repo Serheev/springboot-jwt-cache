@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.serheev.jwtAuth.model.RefreshToken;
 import com.serheev.jwtAuth.model.UserDevice;
 
-public interface UserDeviceRepository extends JpaRepository<UserDevice, Long> {
+public interface UserDeviceRepository extends JpaRepository<UserDevice, Integer> {
 
     @Override
-    Optional<UserDevice> findById(Long id);
+    Optional<UserDevice> findById(Integer id);
 
     Optional<UserDevice> findByRefreshToken(RefreshToken refreshToken);
 
-    Optional<UserDevice> findByUserId(Long userId);
+    Optional<UserDevice> findByUserId(Integer userId);
 }

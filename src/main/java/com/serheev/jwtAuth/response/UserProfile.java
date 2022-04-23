@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserProfile {
-    private Long id;
+    private int id;
     private String email;
     private String name;
     private Boolean active;

@@ -21,7 +21,7 @@ public class UserDeviceService {
         this.userDeviceRepository = userDeviceRepository;
     }
 
-    public Optional<UserDevice> findByUserId(Long userId) {
+    public Optional<UserDevice> findByUserId(int userId) {
         return userDeviceRepository.findByUserId(userId);
     }
 

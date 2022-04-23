@@ -3,17 +3,12 @@ package com.serheev.jwtAuth.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name ="user_device")
-public class UserDevice {
-
-	@Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_device_seq")
-    @SequenceGenerator(name = "user_device_seq", allocationSize = 1)
-    private Long id;
+public class UserDevice extends BaseEntity implements Serializable {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)

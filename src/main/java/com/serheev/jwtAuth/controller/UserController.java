@@ -77,7 +77,7 @@ public class UserController {
 
     @GetMapping("/byID/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public UserProfile getUserProfileById(@PathVariable(value = "id") Long id) {
+    public UserProfile getUserProfileById(@PathVariable(value = "id") int id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 
@@ -88,7 +88,7 @@ public class UserController {
 
     @PutMapping("/byID/{id}/deactivate")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<ApiResponse> deactivateUserById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<ApiResponse> deactivateUserById(@PathVariable(value = "id") int id) {
     	User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         user.deactivate();
@@ -98,7 +98,7 @@ public class UserController {
 
     @PutMapping("/byID/{id}/activate")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<ApiResponse> activateUserById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<ApiResponse> activateUserById(@PathVariable(value = "id") int id) {
        User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         user.activate();
@@ -108,7 +108,7 @@ public class UserController {
 
     @DeleteMapping("/byID/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<ApiResponse> deleteUser(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<ApiResponse> deleteUser(@PathVariable(value = "id") int id) {
     	User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         userRepository.delete(user);

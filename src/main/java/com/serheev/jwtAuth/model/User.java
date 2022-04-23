@@ -5,18 +5,14 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "email" }) })
-public class User {
-
-	@Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    private Long id;
+public class User extends BaseEntity implements Serializable {
 
     @Column
     @NotBlank(message = "User email cannot be null")

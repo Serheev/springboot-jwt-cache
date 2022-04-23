@@ -9,6 +9,6 @@ import com.serheev.jwtAuth.model.Role;
 import com.serheev.jwtAuth.model.RoleName;
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role, Long> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
     Optional<Role> findByName(RoleName roleName);
 }
