@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -34,10 +33,10 @@ public class JwtProvider {
     @Value("${jwt.token.issuer}")
     private String jwtTokenIssuer;
 
-    private LoggedOutJwtTokenCache loggedOutJwtTokenCache;
+    private final LoggedOutJwtTokenCache loggedOutJwtTokenCache;
 
     @Autowired
-    public void setLoggedOutJwtTokenCache(@Lazy LoggedOutJwtTokenCache loggedOutJwtTokenCache){
+    public JwtProvider(LoggedOutJwtTokenCache loggedOutJwtTokenCache) {
         this.loggedOutJwtTokenCache = loggedOutJwtTokenCache;
     }
 
@@ -79,15 +78,6 @@ public class JwtProvider {
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody().getSubject();
-    }
-
-    public Date getTokenExpiryFromJWT(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
-                .parseClaimsJws(token)
-                .getBody();
-
-        return claims.getExpiration();
     }
 
     public boolean validateJwtToken(String authToken) {

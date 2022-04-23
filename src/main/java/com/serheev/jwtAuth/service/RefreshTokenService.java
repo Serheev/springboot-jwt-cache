@@ -18,7 +18,7 @@ public class RefreshTokenService {
     @Value("${jwt.token.refreshExpirationMs}")
     private Long jwtRefreshTokenExpirationMs;
 
-    private RefreshTokenRepository refreshTokenRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @Autowired
     public RefreshTokenService(RefreshTokenRepository refreshTokenRepository) {

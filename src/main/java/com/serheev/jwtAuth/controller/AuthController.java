@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import com.serheev.jwtAuth.dto.LogOutRequest;
 import com.serheev.jwtAuth.event.OnUserLogoutSuccessEvent;
 import io.jsonwebtoken.ExpiredJwtException;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,28 +56,28 @@ public class AuthController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-    @Autowired
+    @Setter(onMethod=@__({@Autowired}))
     private AuthenticationManager authenticationManager;
 
-    @Autowired
+    @Setter(onMethod=@__({@Autowired}))
     private UserRepository userRepository;
 
-    @Autowired
+    @Setter(onMethod=@__({@Autowired}))
     private RoleRepository roleRepository;
 
-    @Autowired
+    @Setter(onMethod=@__({@Autowired}))
     private PasswordEncoder encoder;
 
-    @Autowired
+    @Setter(onMethod=@__({@Autowired}))
     private JwtProvider jwtProvider;
 
-    @Autowired
+    @Setter(onMethod=@__({@Autowired}))
     private RefreshTokenService refreshTokenService;
 
-    @Autowired
+    @Setter(onMethod=@__({@Autowired}))
     private UserDeviceService userDeviceService;
 
-    @Autowired
+    @Setter(onMethod=@__({@Autowired}))
     private ApplicationEventPublisher applicationEventPublisher;
 
     @PostMapping("/signin")

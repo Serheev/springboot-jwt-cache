@@ -15,22 +15,26 @@ import com.serheev.jwtAuth.repository.RoleRepository;
 
 @Component
 public class InitialDataLoader {
-	
-	@Autowired
-	private RoleRepository roleRepository;
 
-	@Bean
-	public ApplicationRunner initializer() {
-		List<RoleName> roles = Arrays.asList(RoleName.ADMIN, RoleName.DEVELOPER, RoleName.USER);
-	    return args -> roles.forEach(i -> createRoleIfNotFound(i));
-	}
-	
-	private Optional<Role> createRoleIfNotFound(RoleName roleName) {
+    private final RoleRepository roleRepository;
+
+    @Autowired
+    public InitialDataLoader(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
+
+    @Bean
+    public ApplicationRunner initializer() {
+        List<RoleName> roles = Arrays.asList(RoleName.ADMIN, RoleName.DEVELOPER, RoleName.USER);
+        return args -> roles.forEach(i -> createRoleIfNotFound(i));
+    }
+
+    private Optional<Role> createRoleIfNotFound(RoleName roleName) {
         Optional<Role> role = roleRepository.findByName(roleName);
         if (!role.isPresent()) {
-        	Role newRole = new Role();
-        	newRole.setName(roleName);
-        	roleRepository.save(newRole);
+            Role newRole = new Role();
+            newRole.setName(roleName);
+            roleRepository.save(newRole);
         }
         return role;
     }

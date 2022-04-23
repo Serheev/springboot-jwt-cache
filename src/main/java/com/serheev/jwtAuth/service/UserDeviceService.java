@@ -14,8 +14,12 @@ import com.serheev.jwtAuth.repository.UserDeviceRepository;
 @Service
 public class UserDeviceService {
 
-	@Autowired
-    private UserDeviceRepository userDeviceRepository;
+    private final UserDeviceRepository userDeviceRepository;
+
+    @Autowired
+    public UserDeviceService(UserDeviceRepository userDeviceRepository) {
+        this.userDeviceRepository = userDeviceRepository;
+    }
 
     public Optional<UserDevice> findByUserId(Long userId) {
         return userDeviceRepository.findByUserId(userId);

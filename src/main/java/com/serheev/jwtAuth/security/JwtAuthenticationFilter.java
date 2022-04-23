@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +21,13 @@ import com.serheev.jwtAuth.service.UserDetailsServiceImpl;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+
+    @Setter(onMethod=@__({@Autowired}))
     private JwtProvider tokenProvider;
 
+    @Setter(onMethod=@__({@Autowired}))
     private UserDetailsServiceImpl userDetailsService;
-
-    @Autowired
-    public void setTokenProvider(JwtProvider tokenProvider) {
-        this.tokenProvider = tokenProvider;
-    }
-
-    @Autowired
-    public void setUserDetailsServiceImpl(UserDetailsServiceImpl userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
-
-    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

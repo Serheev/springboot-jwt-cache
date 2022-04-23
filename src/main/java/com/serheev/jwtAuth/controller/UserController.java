@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
@@ -37,16 +38,16 @@ import com.serheev.jwtAuth.service.UserPrincipal;
 @RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
+    @Setter(onMethod=@__({@Autowired}))
     private UserRepository userRepository;
-        
-    @Autowired
+
+    @Setter(onMethod=@__({@Autowired}))
     private RefreshTokenService refreshTokenService;
-    
-    @Autowired
+
+    @Setter(onMethod=@__({@Autowired}))
     private UserDeviceService userDeviceService;
-    
-    @Autowired
+
+    @Setter(onMethod=@__({@Autowired}))
     private ApplicationEventPublisher applicationEventPublisher;
 
     @GetMapping("/me")

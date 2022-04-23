@@ -4,13 +4,15 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.serheev.jwtAuth.event.OnUserLogoutSuccessEvent;
-import com.serheev.jwtAuth.security.JwtProvider;
 
 import net.jodah.expiringmap.ExpiringMap;
 
@@ -18,13 +20,10 @@ import net.jodah.expiringmap.ExpiringMap;
 public class LoggedOutJwtTokenCache {
     private static final Logger logger = LoggerFactory.getLogger(LoggedOutJwtTokenCache.class);
 
-    private ExpiringMap<String, OnUserLogoutSuccessEvent> tokenEventMap;
-    private JwtProvider tokenProvider;
+    @Value("${jwt.token.secret}")
+    private String jwtSecret;
 
-    @Autowired
-    public void setTokenProvider(JwtProvider tokenProvider) {
-        this.tokenProvider = tokenProvider;
-    }
+    private ExpiringMap<String, OnUserLogoutSuccessEvent> tokenEventMap;
 
     @Autowired
     public void setTokenEventMap() {
@@ -40,11 +39,20 @@ public class LoggedOutJwtTokenCache {
             logger.info(String.format("Log out token for user [%s] is already present in the cache", event.getUserEmail()));
 
         } else {
-            Date tokenExpiryDate = tokenProvider.getTokenExpiryFromJWT(token);
+            Date tokenExpiryDate = getTokenExpiryFromJWT(token);
             long ttlForToken = getTTLForToken(tokenExpiryDate);
             logger.info(String.format("Logout token cache set for [%s] with a TTL of [%s] seconds. Token is due expiry at [%s]", event.getUserEmail(), ttlForToken, tokenExpiryDate));
             tokenEventMap.put(token, event, ttlForToken, TimeUnit.SECONDS);
         }
+    }
+
+    public Date getTokenExpiryFromJWT(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getExpiration();
     }
 
     public OnUserLogoutSuccessEvent getLogoutEventForToken(String token) {
