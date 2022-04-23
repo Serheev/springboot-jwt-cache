@@ -1,18 +1,10 @@
 package com.serheev.jwtAuth.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 @Data
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name ="user_device")
 public class UserDevice {

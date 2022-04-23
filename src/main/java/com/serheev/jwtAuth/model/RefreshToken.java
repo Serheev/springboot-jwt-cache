@@ -1,21 +1,12 @@
 package com.serheev.jwtAuth.model;
 
-import java.time.Instant;
+import lombok.Data;
 
 import javax.persistence.*;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.time.Instant;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
 @Table(name = "refresh_token")
 public class RefreshToken {
 
